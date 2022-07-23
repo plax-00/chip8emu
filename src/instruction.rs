@@ -39,12 +39,12 @@ pub enum Instruction {
 
 impl Instruction {
     fn from_opcode(opcode: u16) -> Option<Instruction> {
-        let first_nibble: u8 = ((opcode & 0x1000) >> 3) as u8;
-        let last_nibble: u8 = (opcode & 0x0001) as u8;
-        let addr: u16 = opcode & 0x0111;
-        let vx: u8 = ((opcode & 0x0100) >> 2) as u8;
-        let vy: u8 = ((opcode & 0x0010) >> 1) as u8;
-        let byte: u8 = (opcode & 0x0011) as u8;
+        let first_nibble: u8 = ((opcode & 0xF000) >> 3) as u8;
+        let last_nibble: u8 = (opcode & 0x000F) as u8;
+        let addr: u16 = opcode & 0x0FFF;
+        let vx: u8 = ((opcode & 0x0F00) >> 2) as u8;
+        let vy: u8 = ((opcode & 0x00F0) >> 1) as u8;
+        let byte: u8 = (opcode & 0x00FF) as u8;
 
         match first_nibble {
             0x0 => match byte {
