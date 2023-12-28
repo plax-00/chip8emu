@@ -19,6 +19,5 @@ fn main() {
 
     chip8.load_rom(&rom);
     chip8.print_mem();
-
 }
 

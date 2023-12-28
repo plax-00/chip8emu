@@ -1,4 +1,4 @@
-use crate::{cpu::CPU, memory::Memory, instruction::Instruction};
+use crate::{cpu::CPU, memory::Memory};
 
 
 pub const PROGRAM_START: u16 = 0x200;
@@ -10,9 +10,10 @@ pub struct Chip8 {
 }
 
 impl Chip8 {
-    pub fn new() -> Chip8 {
-        Chip8 { cpu: CPU::new(), memory: Memory::new() }
+    pub fn new() -> Self {
+        Self { cpu: CPU::new(), memory: Memory::new() }
     }
+
     pub fn load_rom(&mut self, rom: &Vec<u8>) {
         let mut addr: u16 = PROGRAM_START;
         for byte in rom.iter() {
@@ -20,6 +21,7 @@ impl Chip8 {
             addr += 1;
         }
     }
+
     pub fn print_mem(&self) {
         self.memory.print_mem();
     }

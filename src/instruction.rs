@@ -38,7 +38,7 @@ pub enum Instruction {
 }
 
 impl Instruction {
-    fn from_opcode(opcode: u16) -> Option<Instruction> {
+    pub fn from_opcode(opcode: u16) -> Option<Self> {
         let first_nibble: u8 = ((opcode & 0xF000) >> 3) as u8;
         let last_nibble: u8 = (opcode & 0x000F) as u8;
         let addr: u16 = opcode & 0x0FFF;
@@ -48,48 +48,48 @@ impl Instruction {
 
         match first_nibble {
             0x0 => match byte {
-                0xE0 => Some(Instruction::CLS),
-                0xEE => Some(Instruction::RET),
-                _ => Some(Instruction::SYS(addr)),
+                0xE0 => Some(Self::CLS),
+                0xEE => Some(Self::RET),
+                _ => Some(Self::SYS(addr)),
             },
-            0x1 => Some(Instruction::JP(addr)),
-            0x2 => Some(Instruction::CALL(addr)),
-            0x3 => Some(Instruction::SE_byte(vx, byte)),
-            0x4 => Some(Instruction::SNE_byte(vx, byte)),
-            0x5 => Some(Instruction::SE_reg(vx, vy)),
-            0x6 => Some(Instruction::LD_byte(vx, byte)),
-            0x7 => Some(Instruction::ADD_byte(vx, byte)),
+            0x1 => Some(Self::JP(addr)),
+            0x2 => Some(Self::CALL(addr)),
+            0x3 => Some(Self::SE_byte(vx, byte)),
+            0x4 => Some(Self::SNE_byte(vx, byte)),
+            0x5 => Some(Self::SE_reg(vx, vy)),
+            0x6 => Some(Self::LD_byte(vx, byte)),
+            0x7 => Some(Self::ADD_byte(vx, byte)),
             0x8 => match last_nibble {
-                0x1 => Some(Instruction::OR(vx, vy)),
-                0x2 => Some(Instruction::AND(vx, vy)),
-                0x3 => Some(Instruction::XOR(vx, vy)),
-                0x4 => Some(Instruction::ADD_byte(vx, vy)),
-                0x5 => Some(Instruction::SUB(vx, vy)),
-                0x6 => Some(Instruction::SHR(vx)),
-                0x7 => Some(Instruction::SUBN(vx, vy)),
-                0xE => Some(Instruction::SHL(vx)),
+                0x1 => Some(Self::OR(vx, vy)),
+                0x2 => Some(Self::AND(vx, vy)),
+                0x3 => Some(Self::XOR(vx, vy)),
+                0x4 => Some(Self::ADD_byte(vx, vy)),
+                0x5 => Some(Self::SUB(vx, vy)),
+                0x6 => Some(Self::SHR(vx)),
+                0x7 => Some(Self::SUBN(vx, vy)),
+                0xE => Some(Self::SHL(vx)),
                 _ => None
             },
-            0x9 => Some(Instruction::SNE_byte(vx, vy)),
-            0xA => Some(Instruction::LD_I(addr)),
-            0xB => Some(Instruction::JP_V0(addr)),
-            0xC => Some(Instruction::RND(vx, byte)),
-            0xD => Some(Instruction::DRW(vx, vy, last_nibble)),
+            0x9 => Some(Self::SNE_byte(vx, vy)),
+            0xA => Some(Self::LD_I(addr)),
+            0xB => Some(Self::JP_V0(addr)),
+            0xC => Some(Self::RND(vx, byte)),
+            0xD => Some(Self::DRW(vx, vy, last_nibble)),
             0xE => match byte {
-                0x9E => Some(Instruction::SKP(vx)),
-                0xA1 => Some(Instruction::SKNP(vx)),
+                0x9E => Some(Self::SKP(vx)),
+                0xA1 => Some(Self::SKNP(vx)),
                 _ => None
             },
             0xF => match byte {
-                0x07 => Some(Instruction::LD_reg_from_DT(vx)),
-                0x0A => Some(Instruction::LD_reg_from_key(vx)),
-                0x15 => Some(Instruction::LD_DT_from_reg(vx)),
-                0x18 => Some(Instruction::LD_ST_from_reg(vx)),
-                0x1E => Some(Instruction::ADD_I(vx)),
-                0x29 => Some(Instruction::LD_F(vx)),
-                0x33 => Some(Instruction::LD_B(vx)),
-                0x55 => Some(Instruction::LD_I_write(vx)),
-                0x65 => Some(Instruction::LD_I_read(vx)),
+                0x07 => Some(Self::LD_reg_from_DT(vx)),
+                0x0A => Some(Self::LD_reg_from_key(vx)),
+                0x15 => Some(Self::LD_DT_from_reg(vx)),
+                0x18 => Some(Self::LD_ST_from_reg(vx)),
+                0x1E => Some(Self::ADD_I(vx)),
+                0x29 => Some(Self::LD_F(vx)),
+                0x33 => Some(Self::LD_B(vx)),
+                0x55 => Some(Self::LD_I_write(vx)),
+                0x65 => Some(Self::LD_I_read(vx)),
                 _ => None
             },
             _ => None
