@@ -136,7 +136,7 @@ impl CPU {
 			Ins::LD_DT_from_reg(vx) => self.dt = self.read_register(vx),
 			Ins::LD_ST_from_reg(vx) => self.st = self.read_register(vx),
 			Ins::ADD_I(vx) => self.i += self.read_register(vx) as u16,
-			Ins::LD_F(vx) => todo!(),
+			Ins::LD_F(vx) => self.i = memory.get_font_sprite_addr(vx),
 			Ins::LD_B(vx) => {
 				let hundreds = (vx - (vx % 100)) / 100;
 				let tens = ((vx - hundreds * 100) - (vx % 10)) / 10;
