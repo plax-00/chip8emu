@@ -1,28 +1,24 @@
+use wasm_bindgen::prelude::*;
 use crate::{cpu::CPU, memory::Memory};
 
 
 pub const PROGRAM_START: u16 = 0x200;
 
 #[derive(Debug)]
+#[wasm_bindgen]
 pub struct Chip8 {
 	cpu: CPU,
 	memory: Memory,
 }
 
+#[wasm_bindgen]
 impl Chip8 {
+	#[wasm_bindgen(constructor)]
 	pub fn new() -> Self {
 		Self { cpu: CPU::new(), memory: Memory::new() }
 	}
 
-	pub fn load_rom(&mut self, rom: &Vec<u8>) {
-		let mut addr: u16 = PROGRAM_START;
-		for byte in rom.iter() {
-			self.memory.write_byte(addr, *byte);
-			addr += 1;
-		}
-	}
-
-	pub fn print_mem(&self) {
-		self.memory.print_mem();
+	pub fn print_mem(&self) -> String {
+		self.memory.print_mem()
 	}
 }

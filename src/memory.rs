@@ -45,8 +45,8 @@ impl Memory {
 		sprite as u16 * 5
 	}
 
-	pub fn print_mem(&self) {
-		println!("{:?}", self.bytes);
+	pub fn print_mem(&self) -> String {
+		format!("{:?}", self.bytes)
 	}
 }
 
