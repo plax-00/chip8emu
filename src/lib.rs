@@ -5,6 +5,7 @@ mod chip8;
 mod cpu;
 mod instruction;
 mod memory;
+mod display;
 
 
 // When the `wee_alloc` feature is enabled, this uses `wee_alloc` as the global

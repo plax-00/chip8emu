@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"outDir": "js",
+		"noImplicitAny": true,
+		"module": "nodenext",
+		"target": "es5",
+		"moduleResolution": "nodenext"
+	},
+	"files": [ "ts/index.ts" ]
+}

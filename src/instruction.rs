@@ -1,4 +1,5 @@
 #[allow(non_camel_case_types)]
+#[derive(Debug)]
 pub enum Instruction {
 	SYS(u16),
 	CLS,
@@ -39,11 +40,11 @@ pub enum Instruction {
 
 impl Instruction {
 	pub fn from_opcode(opcode: u16) -> Option<Self> {
-		let first_nibble: u8 = ((opcode & 0xF000) >> 3) as u8;
+		let first_nibble: u8 = ((opcode & 0xF000) >> 12) as u8;
 		let last_nibble: u8 = (opcode & 0x000F) as u8;
 		let addr: u16 = opcode & 0x0FFF;
-		let vx: u8 = ((opcode & 0x0F00) >> 2) as u8;
-		let vy: u8 = ((opcode & 0x00F0) >> 1) as u8;
+		let vx: u8 = ((opcode & 0x0F00) >> 8) as u8;
+		let vy: u8 = ((opcode & 0x00F0) >> 4) as u8;
 		let byte: u8 = (opcode & 0x00FF) as u8;
 
 		match first_nibble {
@@ -60,17 +61,18 @@ impl Instruction {
 			0x6 => Some(Self::LD_byte(vx, byte)),
 			0x7 => Some(Self::ADD_byte(vx, byte)),
 			0x8 => match last_nibble {
+				0x0 => Some(Self::LD_reg(vx, vy)),
 				0x1 => Some(Self::OR(vx, vy)),
 				0x2 => Some(Self::AND(vx, vy)),
 				0x3 => Some(Self::XOR(vx, vy)),
-				0x4 => Some(Self::ADD_byte(vx, vy)),
+				0x4 => Some(Self::ADD_reg(vx, vy)),
 				0x5 => Some(Self::SUB(vx, vy)),
 				0x6 => Some(Self::SHR(vx)),
 				0x7 => Some(Self::SUBN(vx, vy)),
 				0xE => Some(Self::SHL(vx)),
 				_ => None
 			},
-			0x9 => Some(Self::SNE_byte(vx, vy)),
+			0x9 => Some(Self::SNE_reg(vx, vy)),
 			0xA => Some(Self::LD_I(addr)),
 			0xB => Some(Self::JP_V0(addr)),
 			0xC => Some(Self::RND(vx, byte)),

@@ -4,3 +4,4 @@ node_modules
 /data
 /pkg
 /wasm-pack.log
+js/index.js
