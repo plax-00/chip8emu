@@ -3,7 +3,7 @@ import { memory } from "chip8emu/chip8emu_bg.wasm"
 
 const WIDTH = 64;
 const HEIGHT = 32;
-const PIXEL_SIZE = 10;
+const PIXEL_SIZE = 15;
 const CPU_DELAY = 2;
 
 const chip8 = new Chip8();
