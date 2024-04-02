@@ -140,7 +140,16 @@ impl CPU {
 				}
 			},
 			Ins::LD_reg_from_DT(vx) => self.write_reg(vx, self.dt),
-			Ins::LD_reg_from_key(_vx) => panic!("You hit the arm which must not be hit."),
+            Ins::LD_reg_from_key(vx) => {
+                for (i, key) in keys.iter().enumerate() {
+                    if *key {
+                        self.write_reg(vx, i as u8);
+                        return;
+                    }
+                }
+
+                self.pc -= 2;
+            },
 			Ins::LD_DT_from_reg(vx) => self.dt = self.read_reg(vx),
 			Ins::LD_ST_from_reg(vx) => self.st = self.read_reg(vx),
 			Ins::ADD_I(vx) => self.i += self.read_reg(vx) as u16,

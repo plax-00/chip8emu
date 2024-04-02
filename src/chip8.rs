@@ -56,9 +56,8 @@ impl Chip8 {
 		self.display.clear();
 	}
 
-	pub fn update_key(&mut self, key: u8, state: bool) -> Option<u8> {
+	pub fn update_key(&mut self, key: u8, state: bool) {
 		self.keys[key as usize] = state;
-		if self.keys[key as usize] { Some(key) } else { None }
 	}
 
 	pub fn clear_memory(&mut self) {
