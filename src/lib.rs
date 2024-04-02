@@ -3,10 +3,9 @@ use wasm_bindgen::prelude::*;
 
 mod chip8;
 mod cpu;
+mod display;
 mod instruction;
 mod memory;
-mod display;
-
 
 // When the `wee_alloc` feature is enabled, this uses `wee_alloc` as the global
 // allocator.
@@ -15,7 +14,6 @@ mod display;
 // #[cfg(feature = "wee_alloc")]
 // #[global_allocator]
 // static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
-
 
 // This is like the `main` function, except for JavaScript.
 #[wasm_bindgen(start)]
