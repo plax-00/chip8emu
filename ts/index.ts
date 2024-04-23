@@ -24,7 +24,6 @@ loadButton.addEventListener('click', async () => {
 	chip8.clear_memory();
     chip8.clear_display();
 	chip8.load_rom(rom);
-    display = new Uint8Array(memory.buffer, chip8.get_display(), WIDTH * HEIGHT);
 	timeoutID = setTimeout(renderLoop, CPU_DELAY);
 })
 

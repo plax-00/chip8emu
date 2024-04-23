@@ -43,10 +43,6 @@ impl Chip8 {
         );
     }
 
-    pub fn print_mem(&self) -> String {
-        self.memory.print_mem()
-    }
-
     pub fn get_display(&self) -> *const bool {
         self.display.get_ptr()
     }

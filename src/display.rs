@@ -23,7 +23,6 @@ impl Display {
     }
 
     pub fn clear(&mut self) {
-        self.pixels = (0..self.width * self.height).map(|_| false).collect();
         for pixel in &mut self.pixels {
             *pixel = false;
         }

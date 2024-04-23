@@ -47,10 +47,6 @@ impl Memory {
         sprite as u16 * 5
     }
 
-    pub fn print_mem(&self) -> String {
-        format!("{:?}", self.bytes)
-    }
-
     pub fn get_sprite(&self, addr: u16, length: u8) -> &[u8] {
         let start = addr as usize;
         let end = (addr + length as u16) as usize;
