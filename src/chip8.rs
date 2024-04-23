@@ -47,16 +47,14 @@ impl Chip8 {
         self.display.get_ptr()
     }
 
-    pub fn clear_display(&mut self) {
-        self.display.clear();
-    }
-
     pub fn update_key(&mut self, key: u8, state: bool) {
         self.keys[key as usize] = state;
     }
 
-    pub fn clear_memory(&mut self) {
-        self.memory = Memory::new();
+    pub fn reset(&mut self) {
+        self.display.clear();
+        let _ = std::mem::replace(&mut self.memory, Memory::new());
+        let _ = std::mem::replace(&mut self.cpu, CPU::new());
     }
 
     pub fn load_rom(&mut self, rom: Vec<u8>) {

@@ -11,7 +11,7 @@ const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
 canvas.width = WIDTH * PIXEL_SIZE;
 canvas.height = HEIGHT * PIXEL_SIZE;
 const ctx = canvas.getContext('2d');
-let display = new Uint8Array(memory.buffer, chip8.get_display(), WIDTH * HEIGHT);
+const display = new Uint8Array(memory.buffer, chip8.get_display(), WIDTH * HEIGHT);
 
 const romInput = document.getElementById('rom') as HTMLInputElement;
 const loadButton = document.getElementById('load-button') as HTMLButtonElement;
@@ -21,8 +21,7 @@ let timeoutID: NodeJS.Timeout;
 loadButton.addEventListener('click', async () => {
 	rom = new Uint8Array(await romInput.files[0].arrayBuffer())
 	if (timeoutID) clearTimeout(timeoutID);
-	chip8.clear_memory();
-    chip8.clear_display();
+    chip8.reset();
 	chip8.load_rom(rom);
 	timeoutID = setTimeout(renderLoop, CPU_DELAY);
 })
