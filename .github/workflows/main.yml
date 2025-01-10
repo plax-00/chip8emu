@@ -10,7 +10,33 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v4.1.0
         with:
-          # Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.
           node-version: 20.x
       - name: Install deps
         run: npm install
+      - name: Build
+        run: npm run build
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'github-pages'
+          path: ./dist
+
+   
+  deploy:
+    needs: build
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # Specify runner + deployment step
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
