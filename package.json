@@ -3,13 +3,13 @@
   "name": "rust-webpack-template",
   "version": "0.1.0",
   "scripts": {
-    "build": "rimraf dist pkg && webpack",
-    "start": "rimraf dist pkg && webpack-dev-server --open -d",
+    "build": "tsc && rimraf dist pkg && webpack",
+    "start": "tsc && rimraf dist pkg && webpack-dev-server --open -d",
     "test": "cargo test && wasm-pack test --headless"
   },
   "dependencies": {
     "chip8emu": "file:./pkg",
-    "tsc": "^2.0.4"
+    "typescript": "^5.7.3"
   },
   "devDependencies": {
     "@wasm-tool/wasm-pack-plugin": "^1.1.0",
