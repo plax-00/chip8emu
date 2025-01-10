@@ -1,8 +1,5 @@
 name: Deploy to Pages
-on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: [$default-branch]
+on: [push]
 
 jobs:
   build:
