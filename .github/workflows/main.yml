@@ -11,7 +11,6 @@ jobs:
         uses: actions/setup-node@v4.1.0
         with:
           # Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.
-          node-version: 12.x
-          cache: npm
+          node-version: 20.x
       - name: Install deps
         run: npm install
