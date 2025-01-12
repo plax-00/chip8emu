@@ -1,8 +1,6 @@
-## To run
-In the project root, run:
+## Build locally
+Clone repository and run:
 ```sh
-tsc
-npm run start
+npm install && npm run build
 ```
-
-It will run at `localhost:8080`. ROMs can be loaded in the web page.
+Web page can be served from `dist/`.
