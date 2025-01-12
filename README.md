@@ -1,5 +1,6 @@
-## To build locally
-In the project root, run:
+## Build locally
+Clone repository and run:
 ```sh
-npm run build
+npm install && npm run build
 ```
+Web page can be served from `dist/`.
